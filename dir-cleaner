@@ -1,0 +1,34 @@
+#!/bin/bash
+
+directory=$1
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+
+if [[ $1 != "" ]]
+then
+	echo Are you sure? Everything in $directory will be deleted\(y/n\):; read sure
+	
+	if [[ $sure == 'y' ]]
+	then
+		if ls $directory
+		then
+			for i in $(ls $directory); do		
+				$(rm -rf $1/$i)
+				echo
+				echo "[+] $i has been deleted!"
+			done
+			
+			echo; printf '\t'"${GREEN}Everything in $directory is deleted"; echo; echo; echo
+		else
+		
+			echo; printf '\t'"${RED}${directory} is not a directory"; echo; echo; echo	
+		fi 2>/dev/null
+	else
+		echo; printf '\t'"${RED}Program has ended"; echo; echo; echo
+		     
+		
+	fi
+	
+else
+	echo; printf '\t'"${RED}Enter a directory name"; echo; echo; echo
+fi
